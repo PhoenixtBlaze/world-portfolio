@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Portfolio</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #050810;
+        font-family: system-ui, sans-serif;
+      }
+      #flamecore-canvas {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        opacity: 0;
+        transition: opacity 0.55s ease;
+      }
+      #hud {
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        color: rgba(180, 210, 255, 0.85);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        pointer-events: none;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transition: opacity 0.6s ease 0.2s;
+      }
+      #title {
+        position: fixed;
+        top: 20px;
+        left: 24px;
+        color: rgba(220, 235, 255, 0.92);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.6s ease 0.15s;
+      }
+      body.is-ready #title,
+      body.is-ready #hud {
+        opacity: 1;
+      }
+      body.is-ready #flamecore-canvas {
+        opacity: 1;
+      }
+
+      /* Boot loading overlay */
+      #load-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse 120% 80% at 50% 0%, #0c1428 0%, #050810 55%, #03050a 100%);
+        color: rgba(210, 228, 255, 0.92);
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      #load-screen.load-screen--hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      #load-screen::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(80, 140, 220, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(80, 140, 220, 0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+        pointer-events: none;
+      }
+      .load-panel {
+        position: relative;
+        width: min(360px, calc(100vw - 48px));
+        padding: 28px 32px 26px;
+        border-radius: 14px;
+        border: 1px solid rgba(100, 160, 255, 0.22);
+        background: rgba(8, 14, 28, 0.72);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+          0 24px 64px rgba(0, 0, 0, 0.45),
+          0 0 48px rgba(40, 100, 200, 0.08);
+        backdrop-filter: blur(12px);
+      }
+      .load-brand {
+        margin: 0 0 6px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(140, 185, 255, 0.75);
+      }
+      .load-title {
+        margin: 0 0 22px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .load-track {
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+      #load-bar {
+        height: 100%;
+        width: 0%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #3d7fd4, #6eb5ff, #9ed4ff);
+        box-shadow: 0 0 14px rgba(90, 170, 255, 0.55);
+        transition: width 0.35s ease;
+      }
+      .load-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        font-size: 12px;
+        color: rgba(170, 200, 240, 0.78);
+      }
+      #load-label {
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #load-percent {
+        font-variant-numeric: tabular-nums;
+        color: rgba(200, 225, 255, 0.9);
+      }
+      #load-error {
+        margin: 14px 0 0;
+        font-size: 12px;
+        line-height: 1.45;
+        color: #ff9a9a;
+      }
+      #load-error[hidden] {
+        display: none;
+      }
+      .load-screen--error .load-track #load-bar {
+        background: linear-gradient(90deg, #a04040, #e07070);
+        box-shadow: none;
+      }
+      body.is-loading #title,
+      body.is-loading #hud {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="load-screen" aria-live="polite" aria-busy="true">
+      <div class="load-panel">
+        <p class="load-brand">World Portfolio</p>
+        <h1 class="load-title">Loading city</h1>
+        <div class="load-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="load-bar"></div>
+        </div>
+        <div class="load-meta">
+          <span id="load-label">Starting up…</span>
+          <span id="load-percent">0%</span>
+        </div>
+        <p id="load-error" hidden></p>
+      </div>
+    </div>
+    <div id="title">World Portfolio</div>
+    <canvas id="flamecore-canvas"></canvas>
+    <div id="hud"><span id="hud-fps">— fps</span> · drag to pan · scroll to zoom · F follow ship · Esc release</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

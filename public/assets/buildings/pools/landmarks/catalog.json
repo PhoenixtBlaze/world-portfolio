@@ -1,0 +1,36 @@
+{
+  "schema": "world-portfolio-building-catalog/v1",
+  "pool": "landmarks",
+  "orientation": {
+    "up": "+Y",
+    "front": "+Z",
+    "note": "Hero landmark GLBs exported with export_yup; runtime uses upright layout and BUILDING_LANDMARK_FOOTPRINT."
+  },
+  "buildings": [
+    {
+      "id": "timemachine",
+      "glb": "timemachine.glb",
+      "suggestedArchetype": "landmark"
+    },
+    {
+      "id": "portal_lab",
+      "glb": "portal_lab.glb",
+      "suggestedArchetype": "landmark"
+    },
+    {
+      "id": "observatory_dome",
+      "glb": "observatory_dome.glb",
+      "suggestedArchetype": "landmark"
+    },
+    {
+      "id": "relay_station",
+      "glb": "relay_station.glb",
+      "suggestedArchetype": "landmark"
+    },
+    {
+      "id": "landing_pad",
+      "glb": "landing_pad.glb",
+      "suggestedArchetype": "landmark"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "world-portfolio-vehicle-catalog/v1",
+  "orientation": {
+    "up": "+Y",
+    "front": "+Z",
+    "note": "Vehicles exported with export_yup from Blender; runtime normalizes length and grounds on Y=0."
+  },
+  "vehicles": [
+    {
+      "id": "city_car_01",
+      "glb": "city_car_01.glb",
+      "label": "Sci-fi city car",
+      "targetLength": 4.8
+    },
+    {
+      "id": "city_car_02",
+      "glb": "city_car_02.glb",
+      "label": "Sleek hover coupe",
+      "targetLength": 4.8
+    },
+    {
+      "id": "city_car_03",
+      "glb": "city_car_03.glb",
+      "label": "Sci-fi hover sedan (LOD)",
+      "targetLength": 4.8
+    },
+    {
+      "id": "city_car_04",
+      "glb": "city_car_04.glb",
+      "label": "Sleek hover coupe (LOD)",
+      "targetLength": 4.8
+    },
+    {
+      "id": "city_car_05",
+      "glb": "city_car_05.glb",
+      "label": "Sci-fi transport truck (LOD)",
+      "targetLength": 7.2
+    }
+  ]
+}

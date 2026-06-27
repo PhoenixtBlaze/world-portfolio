@@ -1,0 +1,31 @@
+{
+  "schema": "world-portfolio-building-catalog/v1",
+  "pool": "houses",
+  "orientation": { "up": "+Z", "front": "+Y", "note": "Blender Z+ up, Y+ front. Runtime: rotateX(-90) then facade rotateY(180) for tile +Z." },
+  "buildings": [
+    {
+      "id": "house_1",
+      "glb": "House1.glb",
+      "suggestedArchetype": "small_house",
+      "stripeColor": [0.12, 0.52, 0.92]
+    },
+    {
+      "id": "house_2",
+      "glb": "House2.glb",
+      "suggestedArchetype": "small_house",
+      "stripeColor": [0.92, 0.26, 0.2]
+    },
+    {
+      "id": "house_3",
+      "glb": "House3.glb",
+      "suggestedArchetype": "small_house",
+      "stripeColor": [0.18, 0.7, 0.36]
+    },
+    {
+      "id": "house_4",
+      "glb": "House4.glb",
+      "suggestedArchetype": "small_house",
+      "stripeColor": [0.68, 0.32, 0.88]
+    }
+  ]
+}

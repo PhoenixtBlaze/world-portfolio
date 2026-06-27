@@ -1,0 +1,56 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify repo excludes proprietary source
+        run: node scripts/verify-repo-contents.mjs
+
+      - name: Clone private FlameCore
+        env:
+          FLAMECORE_PAT: ${{ secrets.FLAMECORE_PAT }}
+        run: node scripts/ensure-flamecore.mjs
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build:pages
+        env:
+          GITHUB_PAGES: 'true'
+
+      - name: Verify deploy bundle excludes FlameCore source
+        run: node scripts/verify-pages-dist.mjs
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

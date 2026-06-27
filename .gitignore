@@ -1,0 +1,27 @@
+node_modules/
+dist/
+vendor/
+*.log
+.DS_Store
+
+# Local-only source art and downloads (not needed to run the site).
+downloads/
+Blender Assets/
+Blender Files/
+scripts/.glb-originals/
+
+# Local restore snapshots and dev tooling.
+restore-points/
+PLAN.md
+showcase.html
+tile-layout.html
+src/showcase.ts
+src/tile-layout.ts
+scripts/blender/
+scripts/audit-orientation.mjs
+scripts/fix-glb-orientation.mjs
+scripts/inspect-glb.mjs
+scripts/optimize-glb.mjs
+scripts/verify-landmark-pool.mjs
+scripts/verify-park.mjs
+scripts/verify-shop-row.mjs
