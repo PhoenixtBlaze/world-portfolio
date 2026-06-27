@@ -1,66 +1,38 @@
 # World Portfolio
 
-A tile-based procedural infinite city built with the **FlameCore** engine. Inspired by [Infinitown](https://demos.littleworkshop.fr/infinitown) (pastel modular city, ambient traffic) and [Everburn Interactive](https://everburninteractive.com/) (discrete tile grid layout).
+An example project by [Everburn Interactive](https://everburninteractive.com/) showcasing real-time 3D web craft and the **FlameCore** browser engine.
 
-Flying ships replace cars, traveling on glowing sky-lanes above the city blocks.
-
-## Quick start
-
-```bash
-cd "G:\Portfolio Websites\world portfolio"
-npm install
-npm run dev
-```
-
-Open http://127.0.0.1:5180 — drag to orbit, scroll to zoom.
+Explore a tile-based procedural infinite city: modular blocks, ambient traffic, and flying ships on glowing sky-lanes above the streets. The demo draws from the mood of [Infinitown](https://demos.littleworkshop.fr/infinitown) and Everburn’s discrete tile-grid approach, built as a live portfolio piece rather than a static reel.
 
 ## Live demo
 
-After deployment, the site is hosted on GitHub Pages:
-
 **https://phoenixtblaze.github.io/world-portfolio/**
 
-Pushes to `main` rebuild and deploy automatically via `.github/workflows/deploy-pages.yml`.
+- **Drag** — orbit the camera
+- **Scroll** — zoom in and out
+- **F** — follow a ship
+- **Esc** — release follow
 
-## Folder layout
+## What this demonstrates
 
-```
-world portfolio/
-  public/assets/      # Runtime-served GLBs
-  src/
-    main.ts           # FlameCore bootstrap
-    world/            # Tile grid, ships, camera
-```
+**Everburn Interactive**
 
-## Controls
+- Procedural tile streaming and city layout
+- Custom Blender-authored buildings, props, and vehicles
+- Ship and car traffic systems with intersection-aware flow
+- Polished loading, atmosphere, and orbit camera presentation
 
-- **Drag** — orbit camera
-- **Scroll** — zoom in/out
+**FlameCore**
 
-## Assets
-
-| File | Source | Role |
-|------|--------|------|
-| `flying_ship.glb` | Blender (custom) | Sky traffic |
-| `spire_building.glb` | Blender (custom) | Landmark tiles (~8% of grid) |
+- Runtime scene bootstrap and render loop
+- Asset loading and instanced world content
+- Component-driven lighting integration for authored GLB materials
+- Production build and GitHub Pages deployment pipeline
 
 ## Stack
 
-- FlameCore runtime (private repo; cloned at build time, never committed here)
-- Three.js r160
-- Vite
-
-## FlameCore setup (private dependency)
-
-FlameCore source is **not** stored in this repository. For local development, use one of:
-
-1. **Sibling checkout (recommended):** clone [FlameCore](https://github.com/PhoenixtBlaze/FlameCore) next to this project so `../../FlameCore` exists.
-2. **Token clone:** set `FLAMECORE_PAT` to a GitHub PAT with `Contents: Read` on FlameCore, then run `npm install`.
-
-For GitHub Pages CI, add a repository secret named **`FLAMECORE_PAT`** with the same PAT (Settings → Secrets and variables → Actions).
-
-After changing repo visibility, confirm Pages **Source** is **GitHub Actions**, not "Deploy from a branch".
+FlameCore, Three.js, and Vite — deployed to GitHub Pages from this repository.
 
 ## License notes
 
-Custom Blender assets are project-owned. Third-party downloads must respect their CC licenses (attribution in credits when shipping).
+Custom Blender assets are project-owned. Third-party downloads used in production must respect their CC licenses (attribution in credits when shipping).
